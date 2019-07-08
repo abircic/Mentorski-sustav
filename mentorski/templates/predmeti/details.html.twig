@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Details{{ parent() }}
+{% endblock %}
+
+{% block pageTitle %}
+    Popis predmeta<br>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <tr>
+            <td><a href="/"class="btn btn-outline-primary btn-lg">Homepage</a></td>
+            <td>{% if is_granted('ROLE_ADMIN') %}
+            <td><a href="/user" class="btn btn-outline-primary btn-lg">Studenti</a></td>
+            {% endif %}
+            </td>
+
+        </tr>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Kod</th>
+            <th scope="col">Program</th>
+            <th scope="col">Bodovi</th>
+            <th scope="col">Semestar redovni</th>
+            <th scope="col">Semestar izvanredni</th>
+            <th scope="col">Izborni</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">{{ predmet.id }}</th>
+                <td>{{ predmet.ime }}</td>
+                <td>{{ predmet.kod }}</td>
+                <td>{{ predmet.program }}</td>
+                <td>{{ predmet.bodovi}}</td>
+                <td>{{ predmet.sem_redovni}}</td>
+                <td>{{ predmet.sem_izvanredni}}</td>
+                <td>{{ predmet.izborni}}</td>
+                <td><a href="/predmeti">Back to list</a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

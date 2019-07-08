@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Izrada novog predmeta
+{% endblock %}
+
+{% block pageTitle %}
+    Izrada novog predmeta
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Dodaj predmet" />
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Naslovnica
+{% endblock %}
+
+{% block pageTitle %}
+    Sustav za upravljanje mentorstvom
+{% endblock %}
+
+{% block body %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <h4>Welcome {{ user.email }}</h4><br>
+    <tr>
+        {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="/user" class="btn btn-outline-primary btn-lg">Studenti</a></td>
+            <td><a href="/predmeti"class="btn btn-outline-primary btn-lg">Predmeti</a></td>
+        {% elseif is_granted('ROLE_USER') %}
+            <td><a href="/upisi/{{ user.id }}"class="btn btn-outline-primary btn-lg">Upisi</a></td>
+        {% endif %}
+        </td>
+    </tr>
+    {% endif %}</a>
+    </div>
+
+{% endblock %}

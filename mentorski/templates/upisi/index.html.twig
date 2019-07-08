@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Upisni list
+{% endblock %}
+
+{% block pageTitle %}
+    <td><a href="/" class="btn btn-outline-primary btn-lg">Homepage</a></td>
+    {% if is_granted('ROLE_ADMIN') %}
+        <td><a href="/user" class="btn btn-outline-primary btn-lg">Studenti</a></td>
+        <td><a href="/predmeti"class="btn btn-outline-primary btn-lg">Predmeti</a></td>
+    {% endif %}
+    <br>Upisni list <br>
+    <h4>{{ user.email }}</h4>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <h1>Upisano</h1>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Kod</th>
+            <th scope="col">Bodovi</th>
+            {% if user.status == "redovni" %}
+            <th scope="col">Semestar redovni</th>
+            {% else %}
+            <th scope="col">Semestar izvanredni</th>
+            {% endif %}
+            <th scope="col">Izborni</th>
+            <th scope="col">Status</th>
+            <th scope="col">Izbornik</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for upis in list %}
+            <tr>
+                <th></th>
+                <td>{{ upis.predmet_id.ime }}</td>
+                <td>{{ upis.predmet_id.kod }}</td>
+                <td>{{ upis.predmet_id.bodovi}}</td>
+                {% if user.status == "redovni" %}
+                <td>{{ upis.predmet_id.sem_redovni}}</td>
+                {% else %}
+                <td>{{ upis.predmet_id.sem_izvanredni}}</td>
+                {% endif %}
+                <td>{{ upis.predmet_id.izborni}}</td>
+                <td>{{ upis.status}}</td>
+                <td>
+                    {% if upis.status == "" %}
+                        <a href="{{ path('change_status', {studentId: user.id, predmetId: upis.predmet.id, status: "passed"}) }}" class="btn btn-outline-success btn-sm">passed</a>
+                        <a href="{{ path('change_status', {studentId: user.id, predmetId: upis.predmet.id, status: "enrolled"}) }}" class="btn btn-outline-success btn-sm">enrolled</a>
+                    {% elseif upis.status == "passed" %}
+                        <a href="{{ path('change_status', {studentId: user.id, predmetId: upis.predmet.id, status: "enrolled"}) }}" class="btn btn-outline-success btn-sm">enrolled</a>
+                    {% elseif upis.status == "enrolled" %}
+                        <a href="{{ path('change_status', {studentId: user.id, predmetId: upis.predmet.id, status: "passed"}) }}" class="btn btn-outline-success btn-sm">passed</a>
+                    {% endif %}
+                    <a href="{{ path('unassign', {studentId: user.id, predmetId: upis.predmet.id}) }}" class="btn btn-outline-danger btn-sm">Ispiši</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+
+
+        <table class="table">
+            <h1>Predmeti</h1>
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ime</th>
+                <th scope="col">Kod</th>
+                <th scope="col">Program</th>
+                <th scope="col">Bodovi</th>
+                {% if user.status == "redovni" %}
+                    <th scope="col">Semestar redovni</th>
+                {% else %}
+                    <th scope="col">Semestar izvanredni</th>
+                {% endif %}
+                <th scope="col">Izborni</th>
+                <th scope="col">Izbornik</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for predmet in predmeti%}
+                <tr>
+                    <th scope="row"></th>
+                    <td>{{ predmet.ime }}</td>
+                    <td>{{ predmet.kod }}</td>
+                    <td>{{ predmet.program }}</td>
+                    <td>{{ predmet.bodovi}}</td>
+                    {% if user.status == "redovni" %}
+                        <td>{{ predmet.sem_redovni}}</td>
+                    {% else %}
+                        <td>{{ predmet.sem_izvanredni}}</td>
+                    {% endif %}
+                    <td>{{ predmet.izborni}}</td>
+                    <td>
+                        <a href="{{ path('assign', {studentId: user.id, predmetId: predmet.id}) }}" class="btn btn-outline-success btn-sm">Upiši</a>
+                    </td>
+
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        </tbody>
+    </table>
+{% endblock %}

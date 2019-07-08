@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Studenti{{ parent() }}
+{% endblock %}
+
+{% block pageTitle %}
+    Popis studenata<br>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <tr>
+                <td><a href="/"class="btn btn-outline-primary btn-lg">Homepage</a></td>
+                <td><a href="/predmeti"class="btn btn-outline-primary btn-lg">Predmeti</a></td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td><a href="/user" class="btn btn-outline-primary btn-lg">Studenti</a></td>
+                {% elseif is_granted('ROLE_USER') %}
+                    <td><a href="/upisi/{{ user.id }}"class="btn btn-outline-primary btn-lg">Upisi</a></td>
+                {% endif %}
+                </td>
+
+            </tr>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td><a href="/upisi/{{ user.id }}">{{ user.email }}</a></td>
+                <td>{{ user.status }}</td>
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

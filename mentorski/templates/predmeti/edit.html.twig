@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Uređivanje predmeta
+{% endblock %}
+
+{% block pageTitle %}
+    Uređivanje predmeta
+{% endblock %}
+
+{% block body %}
+    {{ include('predmeti/form.html.twig', {'button_label': 'Save'}) }}
+    <a href="{{ path('predmeti.index') }}">Back to list</a>
+{% endblock %}

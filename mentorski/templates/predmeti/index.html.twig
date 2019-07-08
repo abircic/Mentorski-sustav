@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Predmeti{{ parent() }}
+{% endblock %}
+
+{% block pageTitle %}
+    Popis predmeta<br>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <tr>
+        <td><a href="/"class="btn btn-outline-primary btn-lg">Homepage</a></td>
+        <td>{% if is_granted('ROLE_ADMIN') %}
+        <td><a href="/user" class="btn btn-outline-primary btn-lg">Studenti</a></td>
+        {% endif %}
+        </td>
+
+    </tr>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <a href="/predmeti/create">Create new</a>
+
+        </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Kod</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for predmet in predmeti %}
+            <tr>
+                <th scope="row">{{ predmet.id }}</th>
+                <td>{{ predmet.ime }}</td>
+                <td>{{ predmet.kod }}</td>
+
+                <td>{% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ predmet.id }}/details" class="btn btn-outline-info btn-sm">Details</a>
+                        <a href="{{ predmet.id }}/edit" class="btn btn-outline-info btn-sm">Edit</a>
+                        <a href="{{ predmet.id }}/delete" class="btn btn-outline-danger btn-sm">Delete</a>
+
+                    {% endif %}
+                </td>
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
