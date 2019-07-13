@@ -5,12 +5,13 @@ namespace App\Controller;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/user", name="user")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function index(UserRepository $userRepository)
     {

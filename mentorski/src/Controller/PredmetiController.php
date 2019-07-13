@@ -9,11 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 /**
  * @Route("/predmeti")
+ * * @Security("is_granted('ROLE_ADMIN')")
  */
 class PredmetiController extends AbstractController
 {
@@ -36,7 +37,6 @@ class PredmetiController extends AbstractController
     }
     /**
      * @Route("/create", name="predmeti.create", methods={"GET","POST"})
-     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function create(Request $request): Response
     {
@@ -60,7 +60,6 @@ class PredmetiController extends AbstractController
     }
     /**
      * @Route("/{id}/edit", name="predmeti.edit", methods={"GET","POST"})
-     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function edit(Request $request, Predmeti $predmeti): Response
     {
@@ -81,7 +80,6 @@ class PredmetiController extends AbstractController
     }
     /**
      * @Route("/{id}/details", name="predmeti.details", methods={"GET","POST"})
-     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function details($id)
     {
@@ -96,7 +94,6 @@ class PredmetiController extends AbstractController
     }
     /**
      * @Route("/{predmetId}/delete/", name="predmeti.delete")
-     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function delete($predmetId): Response
     {

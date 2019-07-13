@@ -41,6 +41,17 @@ class Upisi
 
         return $this;
     }
+    public function getStudent(): ?User
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?User $student): self
+    {
+        $this->student = $student;
+
+        return $this;
+    }
 
     public function getPredmet_id(): ?predmeti
     {

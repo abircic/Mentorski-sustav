@@ -7,19 +7,10 @@
 {% block pageTitle %}
     Popis studenata<br>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <tr>
                 <td><a href="/"class="btn btn-outline-primary btn-lg">Homepage</a></td>
                 <td><a href="/predmeti"class="btn btn-outline-primary btn-lg">Predmeti</a></td>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="/user" class="btn btn-outline-primary btn-lg">Studenti</a></td>
-                {% elseif is_granted('ROLE_USER') %}
-                    <td><a href="/upisi/{{ user.id }}"class="btn btn-outline-primary btn-lg">Upisi</a></td>
-                {% endif %}
-                </td>
-
             </tr>
-        {% endif %}
     {% endif %}
 {% endblock %}
 

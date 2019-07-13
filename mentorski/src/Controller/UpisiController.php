@@ -8,18 +8,17 @@ use App\Entity\Predmeti;
 use App\Form\PredmetiType;
 use App\Repository\UpisiRepository;
 use App\Repository\PredmetiRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UpisiController extends AbstractController
 {
     /**
      * @Route("/upisi/{id}", name="upisi")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")
      */
     public function index(PredmetiRepository $predmetiRepository, $id):Response
     {

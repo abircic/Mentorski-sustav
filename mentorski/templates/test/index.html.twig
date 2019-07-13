@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block body %}
+    {{ broj }}<br>
+    {% for student in studenti %}
+{{ student.student.email }} {{ student.predmet.ime }} {{ student.status }} {{ student.predmet.bodovi }}<br>
+    {% endfor %}
+{% endblock %}
